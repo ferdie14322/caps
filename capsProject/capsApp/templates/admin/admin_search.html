@@ -1,0 +1,34 @@
+{%load static%}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Police Admin Dashboard</title>
+		<link
+			rel="stylesheet"
+			href="{% static 'css/admin_dashboard.css' %}"
+		/>
+	</head>
+	<body>
+		<div class="sidebar">
+			<h2>Police Admin</h2>
+			<a href="{% url 'admin_dashboard' %}">Dashboard</a>
+			<a href="{% url 'admin_tickets' %}">Tickets</a>
+
+			<a href="{% url 'admin_disputes' %}">Disputes</a>
+			<a href="{% url 'admin_violations' %}">Violations</a>
+
+			<a href="{% url 'admin_logout' %}">Logout</a>
+		</div>
+
+		<div class="content">
+			<div class="card">
+				<h3>Search</h3>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,160 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Admin Violations</title>
+		<link
+			rel="stylesheet"
+			href="{% static 'css/admin_dashboard.css' %}"
+		/>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	</head>
+	<body>
+		
+
+		<div class="sidebar">
+			<h2>Police Admin</h2>
+			<a href="{% url 'admin_dashboard' %}">Dashboard</a>
+			<a href="{% url 'admin_tickets' %}">Tickets</a>
+
+			<a href="{% url 'admin_disputes' %}">Disputes</a>
+			<a href="{% url 'admin_violations' %}" class="active"
+				>Violations</a
+			>
+
+			<a href="{% url 'admin_logout' %}">Logout</a>
+		</div>
+		<!-- Modal -->
+		<div id="overlay" style="display: none;"></div>
+		<div id="modal" style="display: none;">
+		    <form id="violationForm">
+			<input type="hidden" id="violationId" />
+			<label for="name">Name</label>
+			<input type="text" id="name" name="name" required />
+			<label for="penalty_amount">Penalty Amount</label>
+			<input type="number" id="penalty_amount" name="penalty_amount" required />
+			<button class="save" type="submit">Save</button>
+			<button class="cancel" type="button" onclick="closeModal()">Cancel</button>
+		    </form>
+		</div>
+		<div class="content">
+			<div class="card">
+				<div class="card-top">
+					<h3>Violations</h3>
+					<button id="openModal" class="add-btn">Add Violation</button>
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Penalty Amount</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for violation in violations %}
+						<tr>
+							<td>
+								{{ violation.name }}
+							</td>
+
+							<td>
+								{{ violation.penalty_amount }}
+							</td>
+							<td>
+								<button class="V-editBtn"
+									onclick="editViolation({{ violation.id }}, '{{ violation.name }}', '{{ violation.description }}', '{{ violation.penalty_amount }}')"
+								>
+									Edit
+								</button>
+								<button class="V-deleteBtn"
+									onclick="deleteViolation({{ violation.id }})"
+								>
+									Delete
+								</button>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<script>
+			const modal = document.getElementById("modal");
+			const overlay = document.getElementById("overlay");
+			const form = document.getElementById("violationForm");
+
+			document.getElementById("openModal").addEventListener(
+				"click",
+				() => {
+					form.reset();
+					document.getElementById(
+						"violationId"
+					).value = "";
+					modal.style.display = "flex";
+					overlay.style.display = "flex";
+				}
+			);
+
+			function closeModal() {
+				modal.style.display = "none";
+				overlay.style.display = "none";
+			}
+
+			form.addEventListener("submit", function (e) {
+				e.preventDefault();
+
+				const id =
+					document.getElementById(
+						"violationId"
+					).value;
+				const data = new FormData(form);
+
+				if (id) {
+					axios.post(
+						`/edit_violation/${id}/`,
+						data
+					).then(() => location.reload());
+				} else {
+					axios.post(
+						"/add_violation/",
+						data
+					).then(() => location.reload());
+				}
+			});
+
+			function editViolation(
+				id,
+				name,
+				penalty_amount
+			) {
+				document.getElementById("violationId").value =
+					id;
+				document.getElementById("name").value = name;
+				document.getElementById(
+					"penalty_amount"
+				).value = penalty_amount;
+				modal.style.display = "block";
+			}
+
+			function deleteViolation(id) {
+				if (
+					confirm(
+						"Are you sure you want to delete this violation?"
+					)
+				) {
+					axios.post(
+						`/delete_violation/${id}/`
+					).then(() => location.reload());
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Police Admin Dashboard</title>
+		<link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}" />
+	</head>
+	<body>
+		<div class="sidebar">
+			<h2>Police Admin</h2>
+			<a href="{% url 'admin_dashboard' %}">Dashboard</a>
+			<a href="{% url 'admin_tickets' %}">Tickets</a>
+
+			<a href="{% url 'admin_disputes' %}" class="active">Disputes</a>
+			<a href="{% url 'admin_violations' %}">Violations</a>
+
+			<a href="{% url 'admin_logout' %}">Logout</a>
+		</div>
+
+		<div class="content">
+			<div class="card">
+				<h3>Disputes</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Dispute ID</th>
+							<th>Ticket ID</th>
+							<th>Filed By</th>
+							<th>Violation</th>
+							<th>Reason</th>
+							<th>Date Filed</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for dispute in disputes %}
+							<tr>
+								<td>{{ dispute.id }}</td>
+								<td>{{ dispute.ticket.id }}</td>
+								<td>{{ dispute.filed_by.firstname }} {{ dispute.filed_by.lastname }}</td>
+								<td>{{ dispute.ticket.violation_details.name }}</td>
+								<td>{{ dispute.reason }}</td>
+								<td>{{ dispute.created_at|date:"Y-m-d H:i" }}</td>
+							</tr>
+						{% empty %}
+							<tr>
+								<td colspan="6">No disputes found.</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
+

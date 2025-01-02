@@ -1,0 +1,72 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Police Admin Dashboard</title>
+		<link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}" />
+	</head>
+	<body>
+		<div class="sidebar">
+			<h2>Police Admin</h2>
+			<a href="{% url 'admin_dashboard' %}">Dashboard</a>
+			<a href="{% url 'admin_tickets' %}" class="active">Tickets</a>
+
+			<a href="{% url 'admin_disputes' %}">Disputes</a>
+			<a href="{% url 'admin_violations' %}">Violations</a>
+
+			<a href="{% url 'admin_logout' %}">Logout</a>
+		</div>
+
+		<div class="content">
+			<div class="card">
+				<h3>Tickets</h3>
+				<table border="1">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>License No</th>
+							<th>Plate Number</th>
+							<th>User</th>
+							<th>Issued By</th>
+							<th>Status</th>
+							<th>Created At</th>  <!-- Add Created At Column -->
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for ticket in tickets %}
+						<tr>
+							<td>{{ ticket.id }}</td>
+							<td>{{ ticket.license_no }}</td>
+							<td>{{ ticket.plate_number }}</td>
+							<td>{{ ticket.user_id.firstname }} {{ ticket.user_id.lastname }}</td>
+							<td>{{ ticket.issued_by.firstname }} {{ ticket.issued_by.lastname }}</td>
+							<td>{{ ticket.status }}</td>
+							<td>
+								{{ ticket.created_at|date:"M. d, Y, h:i a" }}  <!-- Format Created At -->
+							</td>
+							<td>
+								<form method="POST" class="status-form">
+									{% csrf_token %}
+									<input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+									<select name="status" class="status-select">
+										{% for choice in ticket.STATUS_CHOICES %}
+											<option value="{{ choice.0 }}" {% if ticket.status == choice.0 %}selected{% endif %}>
+												{{ choice.1 }}
+											</option>
+										{% endfor %}
+									</select>
+									<button class="update-tickets" type="submit" class="update-btn">Update</button>
+								</form>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
+

@@ -1,0 +1,316 @@
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	display: flex;
+	height: 100vh;
+	background-color: #f4f4f9;
+}
+
+.sidebar {
+	width: 250px;
+	background-color: #2f3a4c;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+
+.sidebar h2 {
+	margin: 0 0 20px;
+	font-size: 24px;
+	text-align: center;
+}
+
+.sidebar a {
+	text-decoration: none;
+	color: white;
+	padding: 10px 15px;
+	margin: 5px 0;
+	display: block;
+	border-radius: 5px;
+}
+
+.sidebar a:hover {
+	background-color: #6e7c85;
+}
+
+.sidebar a.active {
+	background-color: #6e7c85;
+}
+
+.content {
+	flex:1;
+	padding: 20px;
+	width: 100%;
+}
+
+.dashboard-stats{
+	width: 90%;
+}
+
+
+.stat-column{
+	width: 100%;
+	display: grid;
+	row-gap: 0.4rem;
+	column-gap: 1rem;
+	grid-template-columns: auto auto;
+}
+.card {
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.card h3 {
+	margin: 0 0 10px;
+}
+
+.card p {
+	margin: 0;
+	color: #7f8c8d;
+}
+
+
+.modal-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.modal-title {
+	font-size: 24px;
+	color: #333;
+	margin-bottom: 15px;
+}
+
+#modal label {
+	font-size: 14px;
+	color: #555;
+
+}
+
+#modal input,
+#modal textarea {
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	font-size: 16px;
+	width: 100%;
+}
+
+#modal input{
+	margin-top: 0.7rem;
+	height: 2rem;
+	padding-left: 1rem;
+}
+
+#modal textarea {
+	resize: vertical;
+	height: 100px;
+}
+
+.modal-actions {
+	display: flex;
+	justify-content: space-between;
+}
+
+.save-btn,
+.cancel-btn {
+	padding: 10px 20px;
+	border-radius: 5px;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.save-btn {
+	background-color: #1abc9c;
+	color: white;
+}
+
+.save-btn:hover {
+	background-color: #16a085;
+}
+
+.cancel-btn {
+	background-color: #e74c3c;
+	color: white;
+}
+
+.cancel-btn:hover {
+	background-color: #c0392b;
+}
+
+
+.add-btn {
+	background-color: #6e7c85;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.add-btn:hover {
+	background-color: #181e29;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+}
+
+table th,
+table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+
+#overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: #565a6241;
+  z-index: 1;
+  position: absolute;
+  display: none;
+  overflow: hidden;
+}  
+
+
+#modal {
+  width: 30rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-out forwards;
+  padding: 2.4rem;
+  position: fixed;
+  z-index: 2;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+
+#violation-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#violation-form input,
+#violation-form textarea,
+#violation-form button {
+
+    font-size: 16px;
+}
+#violation-form button {
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#violation-form button:hover {
+    background-color: #16a085;
+}
+
+.save{
+    padding: 0.8rem 1.5rem;	
+    border: none;
+    background-color: #2f3a4c;
+    color: white;
+    border-radius: 5px;
+}
+
+.save:hover{
+    background-color: #181e29;
+    cursor: pointer;
+}
+
+.status-select {
+padding: 5px 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+background-color: #fff;
+font-size: 14px;
+color: #333;
+appearance: none;
+-webkit-appearance: none;
+-moz-appearance: none;:webkit-appearance
+}
+
+.status-select:after {
+content: '▼';
+position: absolute;
+right: 10px;
+pointer-events: none;
+}
+
+
+.status-form {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.update-tickets{
+    padding: 0.6rem 1.5rem;	
+    border: none;
+    background-color: #2f3a4c;
+    color: white;
+    border-radius: 5px;
+}
+
+.update-tickets:hover{
+    background-color: #181e29;
+    cursor: pointer;
+}
+
+.cancel{
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.cancel:hover{
+    background-color: #c2c6d2;
+    cursor: pointer;
+}
+
+.card-top{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.V-editBtn{
+    padding: 0.6rem 1.5rem;	
+    border: none;
+    background-color: #2f3a4c;
+    color: white;
+    border-radius: 5px;
+}
+
+.V-deleteBtn{
+    padding: 0.6rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.V-editBtn:hover{
+    background-color: #181e29;
+    cursor: pointer;
+}
+
+.V-deleteBtn:hover{
+    background-color: #c2c6d2;
+    cursor: pointer;
+}
+

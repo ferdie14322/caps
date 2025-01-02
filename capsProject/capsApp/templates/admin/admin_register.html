@@ -1,0 +1,79 @@
+{%load static%}
+<!doctype html>
+<html>
+	<head>
+		<title>Admin Register</title>
+		<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+	</head>
+	<body>
+		<div class="container">
+			<h2>Admin Register</h2>
+			{% if messages %}
+			<div style="color: red; text-align: center">
+				{% for message in messages %}
+				<p>{{ message }}</p>
+				{% endfor %}
+			</div>
+			{% endif %}
+			<form method="post">
+				{% csrf_token %}
+				<label for="firstname">First Name</label>
+				<input
+					type="text"
+					id="firstname"
+					name="firstname"
+					required
+				/>
+
+				<label for="lastname">Last Name</label>
+				<input
+					type="text"
+					id="lastname"
+					name="lastname"
+					required
+				/>
+
+				<label for="lastname">Username</label>
+				<input
+					type="text"
+					id="username"
+					name="username"
+					required
+				/>
+
+				<label for="mobile_number">Mobile Number</label>
+				<input
+					type="text"
+					id="mobile_number"
+					name="mobile_number"
+					required
+				/>
+
+				<label for="password">Password</label>
+				<input
+					type="password"
+					id="password"
+					name="password"
+					required
+				/>
+
+				<label for="confirm_password"
+					>Confirm Password</label
+				>
+				<input
+					type="password"
+					id="confirm_password"
+					name="confirm_password"
+					required
+				/>
+
+				<button type="submit">Register</button>
+			</form>
+			<p>
+				Already have an account?
+				<a href="{% url 'admin_login' %}">Login here</a
+				>.
+			</p>
+		</div>
+	</body>
+</html>
